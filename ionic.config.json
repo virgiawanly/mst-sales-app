@@ -1,0 +1,7 @@
+{
+  "name": "mst-sales-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
