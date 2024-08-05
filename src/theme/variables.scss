@@ -64,4 +64,20 @@
   --ion-color-dark-contrast-rgb: 255, 255, 255;
   --ion-color-dark-shade: #292929;
   --ion-color-dark-tint: #444444;
+
+  --ion-background-color: #ffffff;
+  --ion-background-color-rgb: 255, 255, 255;
+
+  --ion-background-color-default: #fbfcfd;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /*
+   * Dark Colors
+   * -------------------------------------------
+   */
+
+    --ion-background-color-default: #0f1824;
+  }
 }

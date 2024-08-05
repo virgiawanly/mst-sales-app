@@ -1,0 +1,11 @@
+<div class="ion-padding">
+  <div class="relative mb-3">
+    <input type="text" class="form-control form-input w-full" placeholder="Search..." />
+    <ion-icon name="search-outline" class="absolute right-3 top-1/2 -translate-y-1/2"></ion-icon>
+  </div>
+  <div class="grid gap-3">
+    @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+      <app-customer-card></app-customer-card>
+    }
+  </div>
+</div>
