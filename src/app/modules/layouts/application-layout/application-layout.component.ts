@@ -1,25 +1,15 @@
 import { Component } from '@angular/core';
-import {
-  IonIcon,
-  IonLabel,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-} from '@ionic/angular/standalone';
+import { RouterModule } from '@angular/router';
+import { IonIcon, IonLabel, IonTabBar, IonTabButton, IonTabs, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import {
-  homeOutline,
-  listOutline,
-  receiptOutline,
-  settingsOutline,
-} from 'ionicons/icons';
+import { homeOutline, listOutline, receiptOutline, settingsOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-application-layout',
   templateUrl: './application-layout.component.html',
   styleUrls: ['./application-layout.component.scss'],
   standalone: true,
-  imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
+  imports: [IonRouterOutlet, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, RouterModule],
 })
 export class ApplicationLayoutComponent {
   constructor() {

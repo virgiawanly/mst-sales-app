@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { add, cubeOutline, peopleOutline } from 'ionicons/icons';
 import { BarangTabComponent } from '../../components/barang-tab/barang-tab.component';
@@ -27,6 +28,7 @@ import { CustomerTabComponent } from '../../components/customer-tab/customer-tab
     RouterModule,
     CustomerTabComponent,
     BarangTabComponent,
+    TranslateModule,
   ],
 })
 export class MasterDataIndexPage {

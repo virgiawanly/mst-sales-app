@@ -6,9 +6,7 @@ export const routes: Routes = [
   {
     path: '',
     component: ApplicationLayoutComponent,
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./application-tabs.routes').then((m) => m.routes),
+    loadChildren: () => import('./application-tabs.routes').then((m) => m.routes),
   },
   {
     path: 'home',
@@ -23,13 +21,11 @@ export const routes: Routes = [
   {
     path: 'master-data',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./master-data/master-data.routes').then((m) => m.routes),
+    loadChildren: () => import('./master-data/master-data.routes').then((m) => m.routes),
   },
   {
     path: 'settings',
     canActivate: [authGuard],
-    loadChildren: () =>
-      import('./settings/settings.routes').then((m) => m.routes),
+    loadChildren: () => import('./settings/settings.routes').then((m) => m.routes),
   },
 ];
