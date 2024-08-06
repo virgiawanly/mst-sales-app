@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="grid grid-cols-1 gap-5 lg:grid-cols-12">
+    <div class="lg:col-span-12">
+      <label for="kode" class="form-label">
+        {{ 'customer-code' | translate | titlecase }} <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="kode"
+        formControlName="kode"
+        class="form-control form-input w-full"
+        [ngClass]="{ 'form-invalid': form.get('kode')?.invalid && form.get('kode')?.touched }"
+        [placeholder]="'Input' + ' ' + ('customer-code' | translate)"
+        maxlength="10"
+      />
+      @if (form.get('kode')?.hasError('required') && form.get('kode')?.touched) {
+        <div class="mt-1 text-sm text-red-500">{{ 'customer-code' | translate }} {{ 'is-required' | translate }}</div>
+      } @else if (form.get('kode')?.hasError('maxLength') && form.get('kode')?.touched) {
+        <div class="mt-1 text-sm text-red-500">
+          {{ 'customer-code' | translate }} {{ 'cannot-longer-than' | translate }} 10 {{ 'characters' | translate }}
+        </div>
+      }
+    </div>
+    <!--end col-->
+    <div class="lg:col-span-12">
+      <label for="nama" class="form-label">
+        {{ 'name' | translate | titlecase }} <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="nama"
+        formControlName="nama"
+        class="form-control form-input w-full"
+        [ngClass]="{ 'form-invalid': form.get('nama')?.invalid && form.get('nama')?.touched }"
+        [placeholder]="'Input' + ' ' + ('name' | translate)"
+        maxlength="100"
+      />
+      @if (form.get('nama')?.hasError('required') && form.get('nama')?.touched) {
+        <div class="mt-1 text-sm text-red-500">{{ 'name' | translate }} {{ 'is-required' | translate }}</div>
+      } @else if (form.get('nama')?.hasError('maxLength') && form.get('nama')?.touched) {
+        <div class="mt-1 text-sm text-red-500">
+          {{ 'name' | translate }} {{ 'cannot-longer-than' }} 100 {{ 'characters' }}
+        </div>
+      }
+    </div>
+    <!--end col-->
+    <div class="lg:col-span-12">
+      <label for="telp" class="form-label">
+        {{ 'phone' | translate | titlecase }} <span class="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        id="telp"
+        formControlName="telp"
+        class="form-control form-input w-full"
+        [ngClass]="{ 'form-invalid': form.get('telp')?.invalid && form.get('telp')?.touched }"
+        [placeholder]="'Input' + ' ' + ('phone' | translate)"
+        maxlength="20"
+      />
+      @if (form.get('telp')?.hasError('required') && form.get('telp')?.touched) {
+        <div class="mt-1 text-sm text-red-500">{{ 'phone' | translate }} {{ 'is-required' | translate }}</div>
+      } @else if (form.get('telp')?.hasError('maxLength') && form.get('telp')?.touched) {
+        <div class="mt-1 text-sm text-red-500">
+          {{ 'phone' | translate }} {{ 'cannot-longer-than' }} 20 {{ 'characters' }}
+        </div>
+      }
+    </div>
+    <!--end col-->
+  </div>
+</form>

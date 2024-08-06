@@ -1,26 +1,26 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { catchError, map, of } from 'rxjs';
+import { catchError, combineLatest, filter, from, map, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const authService = inject(AuthService);
 
-  return authService.observe().pipe(
-    map((authenticated) => {
+  return combineLatest([authService.isInitialized(), authService.observe()]).pipe(
+    // Wait until AuthService is initialized
+    filter(([isInitialized, _]) => isInitialized),
+    map(([isInitialized, authenticated]) => {
       if (authenticated) {
         return true;
       }
-      // Redirect to the sign-in page
-      router.navigate([`auth`]);
-      // Prevent the access
+      // Redirect to the sign-in page if not authenticated
+      router.navigate(['auth']);
       return false;
     }),
     catchError((e) => {
-      // Redirect to the sign-in page
-      router.navigate([`auth`]);
-      // Prevent the access
+      // Handle any errors
+      router.navigate(['auth']);
       return of(false);
     })
   );

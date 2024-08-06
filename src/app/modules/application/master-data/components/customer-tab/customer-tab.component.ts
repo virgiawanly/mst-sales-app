@@ -126,4 +126,19 @@ export class CustomerTabComponent implements OnInit, OnDestroy {
     this.customers = [];
     this.getCustomers(false).finally(() => event.target.complete());
   }
+
+  onCustomerDeleted(customer: Customer) {
+    // Remove deleted customer from the list
+    this.customers = this.customers.filter((c) => c.id !== customer.id);
+
+    // Update total items
+    this.customersPagination.totalItems -= 1;
+
+    // Reload the customers if the deleted customer was the last one
+    if (this.customers.length === 0) {
+      this.customersPagination.page = 1;
+      this.customers = [];
+      this.getCustomers();
+    }
+  }
 }

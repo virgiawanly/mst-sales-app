@@ -18,7 +18,7 @@
   @if (customers.length) {
     <div class="grid gap-3">
       @for (customer of customers; track $index) {
-        <app-customer-card [customer]="customer"></app-customer-card>
+        <app-customer-card [customer]="customer" (deleted)="onCustomerDeleted($event)"></app-customer-card>
       }
     </div>
   } @else if (isLoadingCustomers && !customers.length) {

@@ -69,6 +69,8 @@
   --ion-background-color-rgb: 255, 255, 255;
 
   --ion-background-color-default: #fbfcfd;
+  --ion-toolbar-background: #ffffff !important;
+  --ion-toolbar-border-color: #e2e8f0 !important;
   --ion-tab-bar-background: #ffffff !important;
 }
 
@@ -81,8 +83,13 @@
 
     --ion-background-color-default: #0f1824;
     --ion-overlay-background-color: #0f1824;
+    --ion-toolbar-background: #0f1824 !important;
+    --ion-toolbar-border-color: #1c2e45 !important;
     --ion-tab-bar-background: #0f1824 !important;
     --ion-tab-bar-color: #c8d7e9 !important;
     --ion-tab-bar-border-color: #1c2e45 !important;
+    --button-background: #0f1824 !important;
+    --button-background-selected: #0f1824 !important;
+    --button-background-selected-opacity: 0 !important;
   }
 }
