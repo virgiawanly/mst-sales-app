@@ -99,5 +99,7 @@
   "logout": "Logout",
   "logout-confirmation": "Logout Confirmation",
   "are-you-sure-want-to-logout?": "Are you sure want to logout?",
-  "created-at": "Created at"
+  "created-at": "Created at",
+  "try-adjusting-query-placeholder": "Try adjusting the search query and try again",
+  "add-new-data-placeholder": "Add new data to get started"
 }

@@ -99,5 +99,7 @@
   "logout": "Logout",
   "logout-confirmation": "Konfirmasi Logout",
   "are-you-sure-want-to-logout?": "Anda yakin ingin keluar?",
-  "created-at": "Dibuat pada"
+  "created-at": "Dibuat pada",
+  "try-adjusting-query-placeholder": "Sesuaikan kata kunci dan coba lagi",
+  "add-new-data-placeholder": "Tambahkan data baru untuk ditampilkan di sini"
 }

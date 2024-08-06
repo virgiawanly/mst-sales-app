@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RefresherCustomEvent, ToastController } from '@ionic/angular';
@@ -8,6 +9,7 @@ import {
   IonRefresher,
   IonRefresherContent,
 } from '@ionic/angular/standalone';
+import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { searchOutline } from 'ionicons/icons';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
@@ -32,6 +34,8 @@ import { Pagination } from 'src/types/pagination';
     FormsModule,
     CustomerCardComponent,
     CustomerCardLoaderComponent,
+    TranslateModule,
+    CommonModule
   ],
 })
 export class CustomerTabComponent implements OnInit, OnDestroy {
