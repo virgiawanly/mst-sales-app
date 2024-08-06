@@ -69,16 +69,20 @@
   --ion-background-color-rgb: 255, 255, 255;
 
   --ion-background-color-default: #fbfcfd;
+  --ion-tab-bar-background: #ffffff !important;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /*
-   * Dark Colors
-   * -------------------------------------------
-   */
+     * Dark Colors
+     * -------------------------------------------
+     */
 
     --ion-background-color-default: #0f1824;
     --ion-overlay-background-color: #0f1824;
+    --ion-tab-bar-background: #0f1824 !important;
+    --ion-tab-bar-color: #c8d7e9 !important;
+    --ion-tab-bar-border-color: #1c2e45 !important;
   }
 }
