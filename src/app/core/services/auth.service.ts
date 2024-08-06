@@ -1,13 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-  from,
-  of,
-  switchMap,
-  throwError,
-} from 'rxjs';
+import { BehaviorSubject, Observable, from, of, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { StorageService } from './storage.service';
 
@@ -41,9 +34,7 @@ export class AuthService {
   setApiToken(token: string | null) {
     return new Promise((resolve) => {
       if (token) {
-        this._storageService
-          .set(environment.api_token_identifier, token)
-          .then(() => resolve(true));
+        this._storageService.set(environment.api_token_identifier, token).then(() => resolve(true));
       } else {
         this._storageService.remove(environment.api_token_identifier);
         resolve(true);
@@ -59,47 +50,19 @@ export class AuthService {
    * @param {string} credentials.dial_code
    * @returns Observable<any>
    */
-  verifyPhoneNumber(credentials: {
-    phone_number: string;
-    dial_code: string;
-  }): Observable<any> {
+  login(credentials: { username_or_email: string; password: string }): Observable<any> {
     if (this._isAuthenticated.getValue()) {
       return throwError(() => new Error('User is already logged in.'));
     }
 
-    return this._http.post(
-      `${environment.api_url}/mobile/auth/login/verify-phone-number`,
-      credentials
+    return this._http.post(`${environment.api_url}/web/auth/login`, credentials).pipe(
+      switchMap((res: any) => {
+        this.setApiToken(res.data.token);
+        this._isAuthenticated.next(true);
+
+        return of(res);
+      })
     );
-  }
-
-  /**
-   *  Verify the OTP code received by the user.
-   *
-   * @param {Object} credentials
-   * @param {string} credentials.phone_number
-   * @param {string} credentials.dial_code
-   * @param {string} credentials.otp
-   */
-  verifyOTP(credentials: {
-    phone_number: string;
-    dial_code: string;
-    otp: string;
-  }): Observable<any> {
-    if (this._isAuthenticated.getValue()) {
-      return throwError(() => new Error('User is already logged in.'));
-    }
-
-    return this._http
-      .post(`${environment.api_url}/mobile/auth/login/verify-otp`, credentials)
-      .pipe(
-        switchMap((res: any) => {
-          this.setApiToken(res.data.token);
-          this._isAuthenticated.next(true);
-
-          return of(res);
-        })
-      );
   }
 
   /**
