@@ -1,0 +1,55 @@
+<!-- Refresher -->
+<ion-refresher slot="fixed" mode="md" class="z-[2]" (ionRefresh)="refreshTab($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+<!-- ! Refresher -->
+
+<div class="ion-padding">
+  <div class="relative mb-3">
+    <input
+      type="text"
+      class="form-control form-input w-full"
+      placeholder="Search..."
+      [(ngModel)]="barangSearch"
+      (ngModelChange)="barangSearchDebounce.next($event)"
+    />
+    <ion-icon name="search-outline" class="absolute right-3 top-1/2 -translate-y-1/2"></ion-icon>
+  </div>
+  @if (barang.length) {
+    <div class="grid gap-3">
+      @for (item of barang; track $index) {
+        <app-barang-card [barang]="item" (deleted)="onBarangDeleted($event)"></app-barang-card>
+      }
+    </div>
+  } @else if (isLoadingBarang && !barang.length) {
+    <div class="grid gap-3">
+      @for (loader of [1, 2, 3, 4, 5, 6]; track $index) {
+        <app-barang-card-loader></app-barang-card-loader>
+      }
+    </div>
+  } @else {
+    <div class="grid min-h-[70vh] w-full place-items-center">
+      <div class="flex flex-col items-center justify-center gap-5">
+        <img src="/assets/images/no-data.svg" class="h-auto w-44 max-w-full" />
+        <div class="flex flex-col items-center justify-center gap-1 text-center">
+          <h6 class="text-lg font-bold">{{ 'no-data-found' | translate | titlecase }}</h6>
+          <p class="max-w-56 text-sm text-slate-800 dark:text-zink-200">
+            {{
+              barangSearch.length
+                ? ('try-adjusting-query-placeholder' | translate)
+                : ('add-new-data-placeholder' | translate)
+            }}.
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+@if (barang.length < barangPagination.totalItems) {
+  <div class="pt-6">
+    <ion-infinite-scroll (ionInfinite)="loadMoreBarang($event)">
+      <ion-infinite-scroll-content [loadingSpinner]="'lines-sharp'"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+}

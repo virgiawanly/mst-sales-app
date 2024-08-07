@@ -1,0 +1,57 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-back-button defaultHref="/master-data" slot="start" color="light"></ion-back-button>
+    <ion-title>{{ 'item-details' | translate | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="page-content">
+  <div class="ion-padding">
+    @if (barang && !isLoadingBarang) {
+      <div
+        class="dark:border-surface-750 dark:bg-surface-900 mb-4 rounded-md border border-slate-200 bg-white p-4 shadow-sm"
+      >
+        <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2 flex flex-col">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
+              {{ 'name' | translate | titlecase }}
+            </h6>
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">{{ barang.nama }}</p>
+          </div>
+          <div class="flex flex-col">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
+              {{ 'code' | translate | titlecase }}
+            </h6>
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">{{ barang.kode }}</p>
+          </div>
+          <div class="flex flex-col">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
+              {{ 'price' | translate | titlecase }}
+            </h6>
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">
+              Rp {{ barang.harga | number: '1.2-2' }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <button
+          class="h-10 w-full rounded border border-solid border-red-500 bg-red-500 px-3 font-medium text-white duration-300 hover:bg-red-600 hover:text-white"
+          (click)="openDeleteConfirmation()"
+        >
+          {{ 'delete' | translate | titlecase }}
+        </button>
+        <button
+          class="h-10 w-full rounded border border-solid border-primary-500 bg-primary-500 px-3 font-medium text-white duration-300 hover:bg-primary-600 hover:text-white"
+          [routerLink]="'/master-data/barang/' + barang.id + '/edit'"
+        >
+          {{ 'edit' | translate | titlecase }}
+        </button>
+      </div>
+    } @else {
+      <div class="grid min-h-[90vh] place-items-center">
+        <ion-spinner name="lines-sharp"></ion-spinner>
+      </div>
+    }
+  </div>
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>Master Data</ion-title>
+  </ion-toolbar>
+  <div class="ion-padding overflow-x-auto bg-white py-0 dark:bg-surface-900">
+    <div class="items-centner flex w-full min-w-fit">
+      <a
+        class="flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500 dark:hover:bg-surface-850"
+        (click)="selectTab('customer')"
+        [ngClass]="{
+          'border-primary-500 font-semibold text-primary-500': activeTab === 'customer',
+          'border-primary-50 font-medium text-gray-600 dark:border-surface-750 dark:text-surface-200':
+            activeTab !== 'customer',
+        }"
+      >
+        <ion-icon name="people-outline" class="text-lg"></ion-icon>
+        <span>{{ 'customers' | translate | titlecase }}</span>
+      </a>
+      <a
+        class="flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500 dark:hover:bg-surface-850"
+        (click)="selectTab('barang')"
+        [ngClass]="{
+          'border-primary-500 font-semibold text-primary-500': activeTab === 'barang',
+          'border-primary-50 font-medium text-gray-600 dark:border-surface-750 dark:text-surface-200':
+            activeTab !== 'barang',
+        }"
+      >
+        <ion-icon name="cube-outline" class="text-lg"></ion-icon>
+        <span>{{ 'items' | translate | titlecase }}</span>
+      </a>
+    </div>
+  </div>
+</ion-header>
+
+<ion-content id="page-content" [fullscreen]="true">
+  <!-- Customer Tab -->
+  <div [ngClass]="{ block: activeTab === 'customer', hidden: activeTab !== 'customer' }">
+    <app-customer-tab></app-customer-tab>
+  </div>
+  <!-- ! Customer Tab -->
+
+  <!-- Barang Tab -->
+  <div [ngClass]="{ block: activeTab === 'barang', hidden: activeTab !== 'barang' }">
+    <app-barang-tab></app-barang-tab>
+  </div>
+  <!-- ! Barang Tab -->
+</ion-content>
+
+@if (activeTab === 'customer') {
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/master-data/customers/create" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+} @else if (activeTab === 'barang') {
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/master-data/barang/create" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+}
