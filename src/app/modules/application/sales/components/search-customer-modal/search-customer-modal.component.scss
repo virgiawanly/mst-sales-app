@@ -1,0 +1,13 @@
+#search-customer-modal {
+  --max-height: 640px;
+
+  ion-content {
+    --background: var(--ion-overlay-background-color);
+  }
+
+  ion-header {
+    ion-toolbar {
+      --background: var(--ion-overlay-background-color);
+    }
+  }
+}

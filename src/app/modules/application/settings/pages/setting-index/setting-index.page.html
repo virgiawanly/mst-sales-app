@@ -1,0 +1,71 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>{{ 'settings' | translate | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="page-content">
+  <div class="ion-padding grid gap-3">
+    <div
+      class="dark:bg-surface-900 border-surface-100 dark:border-surface-750 rounded-md border-b bg-white p-3 shadow-sm"
+    >
+      @if (user) {
+        <div class="flex items-center justify-start gap-4">
+          <div
+            class="grid aspect-square h-16 w-16 place-items-center rounded-md bg-primary-500 bg-opacity-10 text-primary-500"
+          >
+            <span class="text-lg font-bold text-primary-500">{{ getNameInitials(user.name) | uppercase }}</span>
+          </div>
+          <div class="flex flex-1 flex-col gap-1">
+            <h2 class="text-lg font-semibold">{{ user.name }}</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-300">{{ user.email }}</p>
+          </div>
+        </div>
+      }
+    </div>
+    <div
+      class="dark:bg-surface-900 border-surface-100 dark:border-surface-750 flex min-h-14 items-center gap-3 rounded-md border-b bg-white px-3 py-2 shadow-sm"
+    >
+      <div class="flex w-10 items-center justify-center">
+        <ion-icon name="language-outline" class="size-5"></ion-icon>
+      </div>
+      <div class="flex-1">
+        <p class="line-clamp-1">{{ 'language' | translate | titlecase }}</p>
+      </div>
+      <div class="w-fit">
+        <select
+          class="h-full border-none bg-transparent text-slate-800 focus:outline-none active:outline-none dark:text-slate-200"
+          [(ngModel)]="language"
+          (ngModelChange)="onLanguageChange($event)"
+        >
+          <option value="id">Bahasa Indonesia</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </div>
+    <div
+      class="dark:bg-surface-900 border-surface-100 dark:border-surface-750 flex min-h-14 items-center gap-3 rounded-md border-b bg-white px-3 py-2 shadow-sm"
+    >
+      <div class="flex w-10 items-center justify-center">
+        <ion-icon name="sunny-outline" class="size-5"></ion-icon>
+      </div>
+      <div class="flex-1">
+        <p class="line-clamp-1">{{ 'dark-mode' | translate | titlecase }}</p>
+      </div>
+      <div class="w-fit">
+        <ion-toggle [(ngModel)]="isDarkMode" (ngModelChange)="onDarkModeToggleChange($event)"></ion-toggle>
+      </div>
+    </div>
+    <a
+      class="dark:bg-surface-900 border-surface-100 hover:bg-surface-50 dark:hover:bg-surface-850 dark:border-surface-750 flex min-h-14 items-center gap-3 rounded-md border-b bg-white px-3 py-2 shadow-sm"
+      (click)="openLogoutConfirmation()"
+    >
+      <div class="flex w-10 items-center justify-center">
+        <ion-icon name="exit-outline" class="size-5"></ion-icon>
+      </div>
+      <div class="flex-1">
+        <p class="line-clamp-1">{{ 'logout' | translate | titlecase }}</p>
+      </div>
+    </a>
+  </div>
+</ion-content>

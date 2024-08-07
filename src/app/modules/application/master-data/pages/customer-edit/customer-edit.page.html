@@ -1,0 +1,35 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-back-button defaultHref="/master-data" slot="start" color="light"></ion-back-button>
+    <ion-title>{{ 'edit-customer' | translate | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" id="page-content">
+  <div class="ion-padding my-3 min-h-[85vh] bg-white dark:bg-surface-900">
+    <app-customer-form [form]="customerForm" [customer]="customer" (formSubmit)="submit()"></app-customer-form>
+  </div>
+</ion-content>
+
+<ion-footer mode="ios">
+  <ion-toolbar class="ion-no-padding">
+    <div class="ion-padding flex items-center justify-between gap-3">
+      <div class="flex-1">
+        <button
+          class="h-10 w-full rounded border border-solid border-primary-500 bg-transparent px-3 font-medium text-primary-500 duration-300 hover:bg-primary-500 hover:text-white"
+          (click)="back()"
+        >
+          {{ 'cancel' | translate | titlecase }}
+        </button>
+      </div>
+      <div class="flex-1">
+        <button
+          class="h-10 w-full rounded border border-solid border-primary-500 bg-primary-500 px-3 font-semibold text-white duration-300 hover:bg-primary-600 hover:text-white"
+          (click)="submit()"
+        >
+          {{ 'save' | translate | titlecase }}
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
