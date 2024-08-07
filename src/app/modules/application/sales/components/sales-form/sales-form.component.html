@@ -1,0 +1,379 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="ion-padding grid gap-4">
+    <!-- Sales Info -->
+    <div class="dark:border-surface-750 dark:bg-surface-900 rounded-md border border-slate-200 bg-white shadow-sm">
+      <div class="w-full px-4 py-3">
+        <h3 class="text-sm font-semibold underline">{{ 'sales-info' | translate | titlecase }}:</h3>
+      </div>
+      <div class="w-full">
+        <hr class="dark:border-surface-750 w-full border-slate-200" />
+      </div>
+      <div class="grid w-full gap-4 p-4">
+        <div class="w-full">
+          <label for="kode" class="form-label">
+            {{ 'code' | translate | titlecase }} <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            id="kode"
+            class="form-control form-input w-full"
+            placeholder="Loading..."
+            [value]="salesCode"
+            readonly
+          />
+        </div>
+        <!--end col-->
+        <div class="w-full">
+          <label for="tgl" class="form-label">
+            {{ 'date' | translate | titlecase }} <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="datetime-local"
+            id="tgl"
+            formControlName="tgl"
+            class="form-control form-input w-full"
+            [ngClass]="{ 'form-invalid': form.get('tgl')?.invalid && form.get('tgl')?.touched }"
+            [placeholder]="'Input' + ' ' + ('date' | translate)"
+          />
+          @if (form.get('tgl')?.hasError('required') && form.get('tgl')?.touched) {
+            <div class="mt-1 text-sm text-red-500">{{ 'date' | translate }} {{ 'is-required' | translate }}</div>
+          }
+        </div>
+        <!--end col-->
+      </div>
+    </div>
+    <!-- ! Sales Info -->
+
+    <!-- Customer Info -->
+    <div class="dark:border-surface-750 dark:bg-surface-900 rounded-md border border-slate-200 bg-white shadow-sm">
+      <div class="w-full px-4 py-3">
+        <h3 class="text-sm font-semibold underline">{{ 'customer-info' | translate | titlecase }}:</h3>
+      </div>
+      <div class="w-full">
+        <hr class="dark:border-surface-750 w-full border-slate-200" />
+      </div>
+      <div class="grid w-full gap-4 p-4">
+        @if (selectedCustomer) {
+          <div class="w-full">
+            <label for="customer-code" class="form-label">
+              {{ 'code' | translate | titlecase }} <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="customer-code"
+              class="form-control form-input w-full"
+              [value]="selectedCustomer.kode"
+              readonly
+            />
+          </div>
+          <!--end col-->
+          <div class="w-full">
+            <label for="customer-name" class="form-label">
+              {{ 'name' | translate | titlecase }} <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="customer-name"
+              class="form-control form-input w-full"
+              [value]="selectedCustomer.nama"
+              readonly
+            />
+          </div>
+          <!--end col-->
+          <div class="w-full">
+            <label for="customer-phone" class="form-label">
+              {{ 'phone' | translate | titlecase }} <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              id="customer-phone"
+              class="form-control form-input w-full"
+              [value]="selectedCustomer.telp"
+              readonly
+            />
+          </div>
+          <!--end col-->
+        } @else {
+          <div
+            class="bg-surface-100 dark:bg-surface-800 border-surface-200 dark:border-surface-750 w-full rounded-md border p-3"
+          >
+            <div
+              class="text-surface-800 dark:text-surface-100 flex items-center justify-center gap-2 text-xs font-medium"
+            >
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>{{ 'no-customer-selected' | translate | titlecase }}</span>
+            </div>
+          </div>
+        }
+        <div class="w-full">
+          <button
+            class="flex h-10 w-full items-center justify-center gap-2 rounded border border-solid border-primary-500 bg-primary-500 px-3 text-sm font-semibold text-white duration-300 hover:bg-primary-600 hover:text-white"
+            type="button"
+            (click)="openSearchCustomerModal()"
+          >
+            <ion-icon name="search-outline"></ion-icon>
+            <span>{{ 'select-customer' | translate | titlecase }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ! Customer Info -->
+
+    <!-- Sales Items Title -->
+    <div class="dark:border-surface-750 dark:bg-surface-900 rounded-md border border-slate-200 bg-white shadow-sm">
+      <div class="w-full px-4 py-3">
+        <h3 class="text-sm font-semibold underline">{{ 'sales-items' | translate | titlecase }}:</h3>
+      </div>
+    </div>
+    <!-- ! Sales Items Title -->
+
+    <!-- Sales Items List -->
+    <div class="grid w-full gap-4">
+      @if (form.get('details')?.value?.length) {
+        @for (detail of form.get('details')?.value; track $index) {
+          <!-- Item Card -->
+          <div
+            class="dark:border-surface-750 dark:bg-surface-900 gap-3 rounded-md border border-slate-200 bg-white shadow-sm"
+            [formGroup]="detail"
+          >
+            <div class="flex w-full items-center justify-between px-4 py-3">
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <div
+                    class="grid aspect-square h-7 w-7 place-items-center rounded-md bg-primary-500 bg-opacity-10 text-primary-500"
+                  >
+                    <ion-icon name="cube-outline" class="size-4"></ion-icon>
+                  </div>
+                  <h6 class="text-sm font-semibold">{{ 'item' | translate | titlecase }} #{{ $index + 1 }}</h6>
+                </div>
+              </div>
+              <div class="flex items-center justify-end gap-3">
+                <button
+                  class="grid h-7 w-7 place-items-center rounded bg-red-500 bg-opacity-10 font-semibold text-red-500"
+                  type="button"
+                  (click)="removeDetailBarang($index)"
+                >
+                  <ion-icon name="trash-outline" class="size-4"></ion-icon>
+                </button>
+                <button
+                  class="grid h-7 w-7 place-items-center rounded bg-orange-500 bg-opacity-10 font-semibold text-orange-500"
+                  type="button"
+                  (click)="openChangeBarangModal($index)"
+                >
+                  <ion-icon name="swap-horizontal-outline" class="size-4"></ion-icon>
+                </button>
+              </div>
+            </div>
+            <div class="w-full">
+              <hr class="dark:border-surface-750 w-full border-slate-200" />
+            </div>
+            <div class="w-full px-4 py-3">
+              <div class="grid w-full grid-cols-1 gap-3">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-normal text-slate-500 dark:text-slate-200">
+                    {{ 'code' | translate | titlecase }}
+                  </p>
+                  <p class="text-sm font-medium text-slate-700 dark:text-slate-100">
+                    {{ detail.get('barang')?.value?.kode }}
+                  </p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-normal text-slate-500 dark:text-slate-200">
+                    {{ 'name' | translate | titlecase }}
+                  </p>
+                  <p class="text-sm font-medium text-slate-700 dark:text-slate-100">
+                    {{ detail.get('barang')?.value?.nama }}
+                  </p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-normal text-slate-500 dark:text-slate-200">
+                    {{ 'label-price' | translate | titlecase }} (Rp)
+                  </p>
+                  <p class="text-sm font-medium text-slate-700 dark:text-slate-100">
+                    {{ detail.get('barang')?.value?.harga | number: '1.2-2' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full">
+              <hr class="dark:border-surface-750 w-full border-slate-200" />
+            </div>
+            <div class="grid w-full gap-3 p-4">
+              <div class="flex w-full flex-col">
+                <label class="form-label">
+                  {{ 'qty' | translate | titlecase }} <span class="text-red-500">*</span>
+                </label>
+                <input
+                  type="number"
+                  class="form-control form-input h-9 flex-1 text-sm"
+                  formControlName="qty"
+                  placeholder="Input Qty"
+                  (ngModelChange)="detail.onChangeQty(); form.calculateSubtotal()"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                  step="1"
+                  min="1"
+                />
+              </div>
+              <div class="flex w-full flex-col">
+                <label class="form-label"> {{ 'discount' | translate | titlecase }} (%)</label>
+                <input
+                  type="number"
+                  class="form-control form-input h-9 flex-1 text-sm"
+                  placeholder="Input Diskon (%)"
+                  formControlName="diskon_pct"
+                  (ngModelChange)="detail.onChangeDiskonPercentage(); form.calculateSubtotal()"
+                  min="0"
+                  max="100"
+                />
+              </div>
+            </div>
+            <div class="w-full">
+              <hr class="dark:border-surface-750 w-full border-slate-200" />
+            </div>
+            <div class="w-full px-4 py-3">
+              <div class="grid w-full grid-cols-1 gap-3">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-normal text-slate-500 dark:text-slate-200">
+                    {{ 'discount' | translate | titlecase }} (Rp)
+                  </p>
+                  <p class="text-sm font-medium text-slate-700 dark:text-slate-100">
+                    {{ detail.get('diskon_nilai')?.value | number: '1.2-2' }}
+                  </p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-normal text-slate-500 dark:text-slate-200">
+                    {{ 'discounted-price' | translate | titlecase }} (Rp)
+                  </p>
+                  <p class="text-sm font-medium text-slate-700 dark:text-slate-100">
+                    {{ detail.get('harga_diskon')?.value | number: '1.2-2' }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full">
+              <hr class="dark:border-surface-750 w-full border-slate-200" />
+            </div>
+            <div class="w-full px-4 py-3">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-slate-500 dark:text-slate-200">
+                  {{ 'subtotal' | translate | titlecase }} (Rp)
+                </p>
+                <p class="text-sm font-semibold text-slate-800 dark:text-white">
+                  {{ detail.get('total')?.value | number: '1.2-2' }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- ! Item Card -->
+        }
+      } @else {
+        <div
+          class="bg-surface-100 dark:bg-surface-800 border-surface-200 dark:border-surface-750 w-full rounded-md border p-3"
+        >
+          <div
+            class="text-surface-800 dark:text-surface-100 flex items-center justify-center gap-2 text-xs font-medium"
+          >
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            <span>{{ 'no-items-added' | translate | titlecase }}</span>
+          </div>
+        </div>
+      }
+    </div>
+    <!-- ! Sales Items List -->
+
+    <!-- Add Item Button -->
+    <div class="w-full">
+      <button
+        class="flex h-10 w-full items-center justify-center gap-2 rounded border border-solid border-primary-500 bg-primary-500 px-3 text-sm font-semibold text-white duration-300 hover:bg-primary-600 hover:text-white"
+        type="button"
+        (click)="openAddBarangModal()"
+      >
+        <ion-icon name="add-outline"></ion-icon>
+        <span>{{ 'add-item' | translate | titlecase }}</span>
+      </button>
+    </div>
+    <!-- ! Add Item Button -->
+
+    <!-- Summary -->
+    <div class="dark:border-surface-750 dark:bg-surface-900 rounded-md border border-slate-200 bg-white shadow-sm">
+      <div class="w-full px-4 py-3">
+        <h3 class="text-sm font-semibold underline">{{ 'summary' | translate | titlecase }}:</h3>
+      </div>
+      <div class="w-full">
+        <hr class="dark:border-surface-750 w-full border-slate-200" />
+      </div>
+      <div class="grid w-full gap-4 p-4">
+        <div class="flex w-full flex-col">
+          <label class="form-label">{{ 'subtotal' | translate | titlecase }} (Rp)</label>
+          <input
+            type="text"
+            class="form-control form-input h-9 flex-1 text-sm"
+            placeholder="Subtotal"
+            [value]="form.get('subtotal')?.value | number: '1.2-2'"
+            readonly
+          />
+        </div>
+        <div class="flex w-full flex-col">
+          <label class="form-label">{{ 'discount' | translate | titlecase }} (Rp)</label>
+          <input
+            type="number"
+            class="form-control form-input h-9 flex-1 text-sm"
+            [placeholder]="'Input' + ' ' + ('discount' | translate | titlecase)"
+            formControlName="diskon"
+            (ngModelChange)="form.onChangeDiskon()"
+            min="0"
+          />
+        </div>
+        <div class="flex w-full flex-col">
+          <label class="form-label">{{ 'shipping-cost' | translate | titlecase }} (Rp)</label>
+          <input
+            type="number"
+            class="form-control form-input h-9 flex-1 text-sm"
+            [placeholder]="'Input' + ' ' + ('shipping-cost' | translate | titlecase)"
+            formControlName="ongkir"
+            (ngModelChange)="form.onChangeOngkir()"
+            min="0"
+          />
+        </div>
+        <div class="flex w-full flex-col">
+          <label class="form-label">{{ 'total-payment' | translate | titlecase }} (Rp)</label>
+          <input
+            type="text"
+            class="form-control form-input h-9 flex-1 text-sm"
+            [placeholder]="'total-payment' | translate | titlecase"
+            [value]="form.get('total_bayar')?.value | number: '1.2-2'"
+            readonly
+          />
+        </div>
+      </div>
+    </div>
+    <!-- ! Summary -->
+  </div>
+</form>
+
+<!-- Search Customer Modal -->
+<app-search-customer-modal
+  [isOpen]="isSearchCustomerModalOpen"
+  [selectedId]="selectedCustomer?.id || null"
+  (selected)="onCustomerSelected($event)"
+  (modalDismiss)="closeSearchCustomerModal()"
+></app-search-customer-modal>
+<!-- ! Search Customer Modal -->
+
+<!-- Add Barang Modal -->
+<app-search-barang-modal
+  [isOpen]="isAddBarangModalOpen"
+  [selectedIds]="getSelectedBarangIds()"
+  (selected)="addDetailsBarang($event)"
+  (modalDismiss)="closeAddBarangModal()"
+></app-search-barang-modal>
+<!-- ! Add Barang Modal -->
+
+<!-- Change Barang Modal -->
+<app-search-barang-modal
+  [isOpen]="isChangeBarangModalOpen"
+  [selectedIds]="getSelectedBarangIds()"
+  (selected)="changeDetailBarang($event)"
+  (modalDismiss)="closeChangeBarangModal()"
+></app-search-barang-modal>
+<!-- ! Change Barang Modal -->

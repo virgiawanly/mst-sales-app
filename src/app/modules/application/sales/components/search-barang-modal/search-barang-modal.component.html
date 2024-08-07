@@ -1,0 +1,107 @@
+<ion-modal
+  [isOpen]="isOpen"
+  id="search-barang-modal"
+  [keepContentsMounted]="true"
+  [canDismiss]="true"
+  mode="ios"
+  [breakpoints]="[1]"
+  [initialBreakpoint]="1"
+  (didPresent)="onDidPresent()"
+  (willDismiss)="modalDismiss.emit()"
+>
+  <ng-template>
+    <ion-header mode="ios">
+      <ion-toolbar>
+        <ion-title>{{ 'select-barang' | translate | titlecase }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="ion-padding">
+        <div class="relative mb-3">
+          <input
+            #barangSearchInput
+            type="text"
+            class="form-control form-input w-full"
+            placeholder="Search..."
+            [(ngModel)]="barangSearch"
+            (ngModelChange)="barangSearchDebounce.next($event)"
+          />
+          <ion-icon name="search-outline" class="absolute right-3 top-1/2 -translate-y-1/2"></ion-icon>
+        </div>
+        @if (barang.length) {
+          <div class="grid gap-3">
+            @for (item of barang; track $index) {
+              <a
+                class="dark:border-surface-750 dark:bg-surface-900 dark:hover:bg-surface-500 flex cursor-pointer items-start gap-3 rounded-md border border-slate-200 bg-white p-3 shadow-sm duration-300 hover:bg-slate-50"
+                (click)="selectBarang(item)"
+              >
+                <div
+                  class="grid aspect-square h-8 w-8 place-items-center rounded-md bg-primary-500 bg-opacity-10 text-primary-500"
+                >
+                  <ion-icon name="cube-outline" class="size-4"></ion-icon>
+                </div>
+                <div class="flex flex-1 flex-col">
+                  <div class="flex items-center justify-between pb-1">
+                    <h5 class="line-clamp-1 flex-1 text-sm font-semibold">{{ item.nama }}</h5>
+                    @if (selectedIds.includes(item.id)) {
+                      <div class="w-fit">
+                        <div class="flex items-center justify-center gap-1 rounded bg-primary-500 px-2 py-1 text-white">
+                          <ion-icon name="checkmark-circle-outline" class="text-sm"></ion-icon>
+                          <span class="text-xs">{{ 'selected' | translate | titlecase }}</span>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="flex flex-col">
+                      <h6 class="text-xs font-normal text-slate-500 dark:text-slate-400">
+                        {{ 'code' | translate | titlecase }}
+                      </h6>
+                      <p class="line-clamp-1 text-xs font-medium text-slate-700 dark:text-slate-100">
+                        {{ item.kode }}
+                      </p>
+                    </div>
+                    <div class="flex flex-col">
+                      <h6 class="text-xs font-normal text-slate-500 dark:text-slate-400">
+                        {{ 'price' | translate | titlecase }}
+                      </h6>
+                      <p class="line-clamp-1 text-xs font-medium text-slate-700 dark:text-slate-100">
+                        {{ item.harga | number: '1.2-2' }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            }
+          </div>
+        } @else if (isLoadingBarang && !barang.length) {
+          <div class="grid gap-3">
+            @for (loader of [1, 2, 3, 4, 5, 6]; track $index) {
+              <div class="bg-skeleton h-20 w-full rounded-md"></div>
+            }
+          </div>
+        } @else {
+          <div class="grid min-h-[55vh] w-full place-items-center">
+            <div class="flex flex-col items-center justify-center gap-5">
+              <img src="/assets/images/no-data.svg" class="h-auto w-40 max-w-full" />
+              <div class="flex flex-col items-center justify-center gap-1 text-center">
+                <h6 class="text-lg font-bold">{{ 'no-data-found' | translate | titlecase }}</h6>
+                <p class="max-w-56 text-sm text-slate-800 dark:text-slate-200">
+                  {{ barangSearchPlaceholder | translate }}.
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (barang.length < barangPagination.totalItems) {
+        <div class="pt-6">
+          <ion-infinite-scroll (ionInfinite)="loadMoreBarang($event)">
+            <ion-infinite-scroll-content [loadingSpinner]="'lines-sharp'"></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </div>
+      }
+    </ion-content>
+  </ng-template>
+</ion-modal>
