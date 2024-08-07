@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api_url: 'http://localhost:8000/api',
+  api_url: 'https://mst-sales-api.virgiawan.dev/api',
   api_token_identifier: 'mstSales@apiToken',
 };
