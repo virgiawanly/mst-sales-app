@@ -170,7 +170,6 @@ export class HomePage implements OnInit {
         .get('mobile/dashboard/analytics')
         .subscribe({
           next: (res: any) => {
-            console.log(res);
             this.analytics = res.data.analytics;
             this.analyticsLastGenerated = res.data.last_generated;
             resolve(res);
