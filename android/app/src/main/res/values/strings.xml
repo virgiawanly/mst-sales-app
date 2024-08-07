@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MST Sales</string>
+    <string name="title_activity_main">MST Sales</string>
+    <string name="package_name">dev.virgiawan.mstsales</string>
+    <string name="custom_url_scheme">dev.virgiawan.mstsales</string>
+</resources>
