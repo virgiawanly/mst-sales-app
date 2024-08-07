@@ -65,7 +65,7 @@ export class CustomerEditPage implements OnInit {
     this.isLoadingCustomer = true;
     this.customerForm.disable();
     this._httpService
-      .get(`web/customer/${this.customerId}`)
+      .get(`mobile/customer/${this.customerId}`)
       .subscribe({
         next: (res: any) => {
           const customer = res.data ?? null;
@@ -109,7 +109,7 @@ export class CustomerEditPage implements OnInit {
     this.isSubmitting = true;
     this.customerForm.disable();
     this._httpService
-      .put(`web/customer/${this.customerId}`, this.customerForm.value)
+      .put(`mobile/customer/${this.customerId}`, this.customerForm.value)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data').then(() => {

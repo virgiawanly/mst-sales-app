@@ -64,7 +64,7 @@ export class CustomerShowPage implements OnInit {
   getCustomer() {
     this.isLoadingCustomer = true;
     this._httpService
-      .get(`web/customer/${this.customerId}`)
+      .get(`mobile/customer/${this.customerId}`)
       .subscribe({
         next: (res: any) => {
           this.customer = res.data ?? null;
@@ -115,7 +115,7 @@ export class CustomerShowPage implements OnInit {
 
     this.isDeletingCustomer = true;
     this._httpService
-      .delete(`web/customer/${this.customer.id}`)
+      .delete(`mobile/customer/${this.customer.id}`)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data', { replaceUrl: true }).then(() => {

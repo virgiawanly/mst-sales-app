@@ -103,7 +103,7 @@ export class SearchCustomerModalComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.isLoadingCustomers = true;
       this._httpService
-        .get('web/customer', {
+        .get('mobile/customer', {
           params: {
             size: this.customersPagination.size,
             page: this.customersPagination.page,

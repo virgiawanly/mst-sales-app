@@ -65,7 +65,7 @@ export class BarangEditPage implements OnInit {
     this.isLoadingBarang = true;
     this.barangForm.disable();
     this._httpService
-      .get(`web/barang/${this.barangId}`)
+      .get(`mobile/barang/${this.barangId}`)
       .subscribe({
         next: (res: any) => {
           const barang = res.data ?? null;
@@ -109,7 +109,7 @@ export class BarangEditPage implements OnInit {
     this.isSubmitting = true;
     this.barangForm.disable();
     this._httpService
-      .put(`web/barang/${this.barangId}`, this.barangForm.value)
+      .put(`mobile/barang/${this.barangId}`, this.barangForm.value)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data').then(() => {

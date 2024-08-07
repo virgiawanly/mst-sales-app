@@ -68,7 +68,7 @@ export class SalesShowPage implements OnInit {
   getSales() {
     this.isLoadingSales = true;
     this._httpService
-      .get(`web/sales/${this.salesId}`)
+      .get(`mobile/sales/${this.salesId}`)
       .subscribe({
         next: (res: any) => {
           const sales = res.data ?? null;
@@ -127,7 +127,7 @@ export class SalesShowPage implements OnInit {
 
     this.isDeletingSales = true;
     this._httpService
-      .delete(`web/sales/${this.sales.id}`)
+      .delete(`mobile/sales/${this.sales.id}`)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/sales').then(() => {

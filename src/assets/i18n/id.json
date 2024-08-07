@@ -104,7 +104,12 @@
   "created-at": "Dibuat pada",
   "try-adjusting-query-placeholder": "Sesuaikan kata kunci dan coba lagi",
   "add-new-data-placeholder": "Tambahkan data baru untuk ditampilkan di sini",
+  "no-sales-to-show": "Tidak ada data penjualan untuk ditampilkan",
   "start-searching-placeholder": "Mulai pencarian untuk menampilkan data",
+  "no-sales-yet": "Belum Ada Penjualan",
   "language": "Bahasa",
-  "dark-mode": "Dark Mode"
+  "dark-mode": "Dark Mode",
+  "latest-sales": "Penjualan Terbaru",
+  "view-all": "Lihat semua",
+  "settings": "Pengaturan"
 }

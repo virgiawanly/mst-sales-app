@@ -2,14 +2,14 @@
   <ion-toolbar>
     <ion-title>Master Data</ion-title>
   </ion-toolbar>
-  <div class="ion-padding dark:bg-surface-900 overflow-x-auto bg-white py-0">
+  <div class="ion-padding overflow-x-auto bg-white py-0 dark:bg-surface-900">
     <div class="items-centner flex w-full min-w-fit">
       <a
-        class="dark:hover:bg-surface-850 flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500"
+        class="flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500 dark:hover:bg-surface-850"
         (click)="selectTab('customer')"
         [ngClass]="{
           'border-primary-500 font-semibold text-primary-500': activeTab === 'customer',
-          'dark:border-surface-750 dark:text-surface-200 border-primary-50 font-medium text-gray-600':
+          'border-primary-50 font-medium text-gray-600 dark:border-surface-750 dark:text-surface-200':
             activeTab !== 'customer',
         }"
       >
@@ -17,11 +17,11 @@
         <span>{{ 'customers' | translate | titlecase }}</span>
       </a>
       <a
-        class="dark:hover:bg-surface-850 flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500"
+        class="flex min-w-28 flex-1 cursor-pointer items-center justify-center gap-2 border-b-2 px-6 py-4 text-center text-sm duration-300 hover:border-primary-500 hover:bg-slate-50 hover:text-primary-500 dark:hover:bg-surface-850"
         (click)="selectTab('barang')"
         [ngClass]="{
           'border-primary-500 font-semibold text-primary-500': activeTab === 'barang',
-          'dark:border-surface-750 dark:text-surface-200 border-primary-50 font-medium text-gray-600':
+          'border-primary-50 font-medium text-gray-600 dark:border-surface-750 dark:text-surface-200':
             activeTab !== 'barang',
         }"
       >
@@ -48,13 +48,13 @@
 
 @if (activeTab === 'customer') {
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/master-data/customers/create">
+    <ion-fab-button routerLink="/master-data/customers/create" color="secondary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 } @else if (activeTab === 'barang') {
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/master-data/barang/create">
+    <ion-fab-button routerLink="/master-data/barang/create" color="secondary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

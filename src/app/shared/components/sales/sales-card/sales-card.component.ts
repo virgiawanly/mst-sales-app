@@ -105,7 +105,7 @@ export class SalesCardComponent {
 
     this.isDeletingSales = true;
     this._httpService
-      .delete(`web/sales/${this.sales.id}`)
+      .delete(`mobile/sales/${this.sales.id}`)
       .subscribe({
         next: (res: any) => {
           this.deleted.emit(this.sales);

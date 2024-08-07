@@ -1,13 +1,159 @@
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-title class="ion-text-center">Home</ion-title>
+    <ion-title>{{ 'dashboard' | translate | titlecase }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" id="page-content">
+  <!-- Refresher -->
+  <ion-refresher slot="fixed" mode="md" class="z-[2]" (ionRefresh)="refreshPage($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <!-- ! Refresher -->
+
+  <!-- Analytics -->
+  <div class="ion-padding">
+    <!-- Analytics Period -->
+    <div class="flex items-center pb-3 pt-1">
+      <p class="font-medium text-slate-600 dark:text-slate-300">
+        <span class="font-semibold dark:text-slate-50">{{ date | date: 'MMM, yyyy' }}</span> Analytics
+      </p>
+    </div>
+    <!-- ! Analytics Period -->
+
+    @if (!isLoadingAnalytics) {
+      <!-- Analytics Grid -->
+      <div class="grid w-full grid-cols-2 gap-3">
+        <div
+          class="flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-surface-750 dark:bg-surface-900"
+        >
+          <div class="flex w-full flex-1 items-start justify-between">
+            <div class="no-scrollbar flex-1 overflow-x-auto p-3 pb-0">
+              <h5 class="text-nowrap text-lg font-bold">{{ analytics.total_gross_sales | number: '1.2-2' }}</h5>
+            </div>
+            <div class="grid h-10 w-10 place-items-center rounded-bl-lg bg-green-600 text-white">
+              <ion-icon name="analytics" class="size-6"></ion-icon>
+            </div>
+          </div>
+          <div class="flex w-full items-center p-3 pt-2">
+            <p class="text-sm text-slate-500 dark:text-slate-300">Gross Sales (Rp)</p>
+          </div>
+        </div>
+        <div
+          class="flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-surface-750 dark:bg-surface-900"
+        >
+          <div class="flex w-full flex-1 items-start justify-between">
+            <div class="no-scrollbar flex-1 overflow-x-auto p-3 pb-0">
+              <h5 class="text-nowrap text-lg font-bold">{{ analytics.sales_average | number: '1.2-2' }}</h5>
+            </div>
+            <div class="grid h-10 w-10 place-items-center rounded-bl-lg bg-orange-500 text-white">
+              <ion-icon name="stats-chart" class="size-6"></ion-icon>
+            </div>
+          </div>
+          <div class="flex w-full items-center p-3 pt-2">
+            <p class="text-sm text-slate-500 dark:text-slate-300">Transactions Avg. (Rp)</p>
+          </div>
+        </div>
+        <div
+          class="flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-surface-750 dark:bg-surface-900"
+        >
+          <div class="flex w-full flex-1 items-start justify-between">
+            <div class="no-scrollbar flex-1 overflow-x-auto p-3 pb-0">
+              <h5 class="text-nowrap text-lg font-bold">{{ analytics.sales_count | number: '1.0-0' }}</h5>
+            </div>
+            <div class="grid h-10 w-10 place-items-center rounded-bl-lg bg-blue-600 text-white">
+              <ion-icon name="cash" class="size-6"></ion-icon>
+            </div>
+          </div>
+          <div class="flex w-full items-center p-3 pt-2">
+            <p class="text-sm text-slate-500 dark:text-slate-300">Transactions</p>
+          </div>
+        </div>
+        <div
+          class="flex flex-col overflow-hidden rounded-md border border-slate-200 bg-white shadow-sm dark:border-surface-750 dark:bg-surface-900"
+        >
+          <div class="flex w-full flex-1 items-start justify-between">
+            <div class="no-scrollbar flex-1 overflow-x-auto p-3 pb-0">
+              <h5 class="text-nowrap text-lg font-bold">{{ analytics.new_customers_count | number: '1.0-0' }}</h5>
+            </div>
+            <div class="grid h-10 w-10 place-items-center rounded-bl-lg bg-purple-600 text-white">
+              <ion-icon name="people" class="size-6"></ion-icon>
+            </div>
+          </div>
+          <div class="flex w-full items-center p-3 pt-2">
+            <p class="text-sm text-slate-500 dark:text-slate-300">New Customers</p>
+          </div>
+        </div>
+      </div>
+      <!-- ! Analytics Grid -->
+    } @else {
+      <!-- Analytics Loader Grid -->
+      <div class="grid w-full grid-cols-2 gap-3">
+        <div class="bg-skeleton min-h-20 w-full rounded-md"></div>
+        <div class="bg-skeleton min-h-20 w-full rounded-md"></div>
+        <div class="bg-skeleton min-h-20 w-full rounded-md"></div>
+        <div class="bg-skeleton min-h-20 w-full rounded-md"></div>
+      </div>
+      <!-- ! Analytics Loader Grid -->
+    }
+
+    @if (analyticsLastGenerated) {
+      <!-- Analytics Last Generated Timestamp -->
+      <div class="flex items-center pt-3">
+        <p class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <span>Last generated: {{ analyticsLastGenerated | date: 'medium' }}</span>
+        </p>
+      </div>
+      <!-- ! Analytics Last Generated Timestamp -->
+    }
+  </div>
+  <!-- ! Analytics -->
+
+  <!-- Sales -->
+  <div class="ion-padding pt-0">
+    <!-- Sales Title -->
+    <div class="flex items-center justify-between pb-3 pt-1">
+      <h3 class="text-lg font-semibold text-slate-900 underline dark:text-white">
+        {{ 'latest-sales' | translate | titlecase }}
+      </h3>
+      <a class="font-medium text-primary-500" routerLink="/sales">{{ 'view-all' | translate }}</a>
+    </div>
+    <!-- ! Sales Title -->
+
+    @if (sales.length) {
+      <div class="grid gap-3">
+        @for (customer of sales; track $index) {
+          <app-sales-card [sales]="customer" (deleted)="onSalesDeleted($event)"></app-sales-card>
+        }
+      </div>
+    } @else if (isLoadingSales && !sales.length) {
+      <div class="grid gap-3">
+        @for (loader of [1, 2, 3, 4, 5, 6]; track $index) {
+          <app-sales-card-loader></app-sales-card-loader>
+        }
+      </div>
+    } @else {
+      <div class="grid min-h-[70vh] w-full place-items-center">
+        <div class="flex flex-col items-center justify-center gap-5">
+          <img src="/assets/images/no-data.svg" class="h-auto w-44 max-w-full" />
+          <div class="flex flex-col items-center justify-center gap-1 text-center">
+            <h6 class="text-lg font-bold">{{ 'no-sales-yet' | translate | titlecase }}</h6>
+            <p class="max-w-56 text-sm text-slate-800 dark:text-zink-200">{{ 'no-sales-to-show' | translate }}.</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  <!-- ! Sales -->
+
+  @if (sales.length < salesPagination.totalItems) {
+    <!-- Sales Infinite Scroll -->
+    <div class="pt-6">
+      <ion-infinite-scroll (ionInfinite)="loadMoreSales($event)">
+        <ion-infinite-scroll-content [loadingSpinner]="'lines-sharp'"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+    <!-- ! Sales Infinite Scroll -->
+  }
 </ion-content>

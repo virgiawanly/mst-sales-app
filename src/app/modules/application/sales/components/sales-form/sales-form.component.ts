@@ -106,7 +106,7 @@ export class SalesFormComponent implements OnInit, OnChanges {
   getSalesCode() {
     this.isLoadingSalesCode = true;
     this._httpService
-      .get(`web/sales/code`)
+      .get(`mobile/sales/code`)
       .subscribe({
         next: (res: any) => {
           this.salesCode = res.data;

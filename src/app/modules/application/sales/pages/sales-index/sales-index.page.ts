@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { RefresherCustomEvent, ToastController } from '@ionic/angular';
 import {
   IonContent,
   IonFab,
@@ -15,6 +14,8 @@ import {
   IonRefresherContent,
   IonTitle,
   IonToolbar,
+  RefresherCustomEvent,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
@@ -92,7 +93,7 @@ export class SalesIndexPage implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.isLoadingSales = true;
       this._httpService
-        .get('web/sales', {
+        .get('mobile/sales', {
           params: {
             size: this.salesPagination.size,
             page: this.salesPagination.page,

@@ -105,6 +105,11 @@
   "try-adjusting-query-placeholder": "Try adjusting the search query and try again",
   "add-new-data-placeholder": "Add new data to get started",
   "start-searching-placeholder": "Start searching to show results",
+  "no-sales-to-show": "No sales data to show",
+  "no-sales-yet": "No Sales",
   "language": "Language",
-  "dark-mode": "Dark Mode"
+  "dark-mode": "Dark Mode",
+  "latest-sales": "Latest Sales",
+  "view-all": "View all",
+  "settings": "Pengaturan"
 }
