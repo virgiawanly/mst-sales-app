@@ -5,7 +5,7 @@ import {
   MenuController,
   ModalController,
   PopoverController,
-} from '@ionic/angular';
+} from '@ionic/angular/standalone';
 
 @Injectable({
   providedIn: 'root',

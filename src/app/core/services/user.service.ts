@@ -14,16 +14,14 @@ export class UserService {
    *
    * @type BehaviorSubject<User|null>
    */
-  private _user$: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(null);
+  private _user$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
 
   /**
    * Status of the user loading.
    *
    * @type BehaviorSubject<boolean>
    */
-  private _isLoadingUser$: BehaviorSubject<boolean> =
-    new BehaviorSubject<boolean>(false);
+  private _isLoadingUser$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     private _authService: AuthService,
@@ -125,12 +123,15 @@ export class UserService {
    */
   fetchUserDataFromApi() {
     this._isLoadingUser$.next(true);
-    return this._httpService.get(`mobile/user`).pipe(
+    return this._httpService.get(`web/auth/user`).pipe(
       finalize(() => this._isLoadingUser$.next(false)),
       map((res: any) => {
-        this.setUser(res.data);
-        this._storageService.set('mstSales@user', res.data);
-        return res.data;
+        const user = res.data.user;
+
+        this.setUser(user);
+        this._storageService.set('mstSales@user', user);
+
+        return user;
       }),
       catchError((err: any) => {
         this.setUser(null);

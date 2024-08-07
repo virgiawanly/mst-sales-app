@@ -104,5 +104,7 @@
   "created-at": "Dibuat pada",
   "try-adjusting-query-placeholder": "Sesuaikan kata kunci dan coba lagi",
   "add-new-data-placeholder": "Tambahkan data baru untuk ditampilkan di sini",
-  "start-searching-placeholder": "Mulai pencarian untuk menampilkan data"
+  "start-searching-placeholder": "Mulai pencarian untuk menampilkan data",
+  "language": "Bahasa",
+  "dark-mode": "Dark Mode"
 }

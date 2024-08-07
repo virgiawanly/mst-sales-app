@@ -21,6 +21,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     importProvidersFrom(
+      IonicStorageModule.forRoot(),
       HttpClientModule,
       TranslateModule.forRoot({
         defaultLanguage: 'en',
@@ -31,7 +32,6 @@ bootstrapApplication(AppComponent, {
         },
       })
     ),
-    importProvidersFrom(IonicStorageModule.forRoot()),
     authInterceptorProviders,
     apiLanguageInterceptorProviders,
     formatErrorInterceptorProviders,

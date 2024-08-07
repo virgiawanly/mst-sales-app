@@ -1,6 +1,7 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
+:root,
 :root {
   --ion-color-primary: #4a3cf1;
   --ion-color-primary-rgb: 74, 60, 241;
@@ -65,15 +66,6 @@
   --ion-color-dark-shade: #292929;
   --ion-color-dark-tint: #444444;
 
-  // --ion-background-color: #ffffff;
-  // --ion-background-color-rgb: 255, 255, 255;
-
-  // --ion-background-color: #ffffff;
-  // --ion-page-background-color: #fbfcfd;
-  // --ion-toolbar-background: #ffffff !important;
-  // --ion-toolbar-border-color: #e2e8f0 !important;
-  // --ion-tab-bar-background: #ffffff !important;
-
   --ion-background-color: #ffffff;
   --ion-background-color-step-50: #f7f9fc; /* Lightest */
   --ion-background-color-step-100: #f0f0ff;
@@ -100,48 +92,34 @@
   --ion-overlay-background-color: var(--ion-background-color) !important;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /*
+.ion-palette-dark.md,
+.ion-palette-dark.ios {
+  /*
      * Dark Colors
      * -------------------------------------------
      */
+  --ion-background-color: #030507;
+  --ion-background-color-step-50: #0a0a0f; /* Darkest */
+  --ion-background-color-step-100: #12121c;
+  --ion-background-color-step-150: #1b1b29;
+  --ion-background-color-step-200: #242439;
+  --ion-background-color-step-250: #2e2e50;
+  --ion-background-color-step-300: #393965;
+  --ion-background-color-step-350: #4a3cf1; /* Primary Color */
+  --ion-background-color-step-400: #5850e2;
+  --ion-background-color-step-450: #6a66cc;
+  --ion-background-color-step-500: #7b7bd4;
+  --ion-background-color-step-550: #8b8fdc;
+  --ion-background-color-step-600: #9a9ed6;
+  --ion-background-color-step-650: #a8aadf;
+  --ion-background-color-step-700: #b6b7e8;
+  --ion-background-color-step-750: #c4c4f2;
+  --ion-background-color-step-800: #d0d0f8;
+  --ion-background-color-step-850: #e1e1fc;
+  --ion-background-color-step-900: #f0f0ff; /* Lightest */
+  --ion-background-color-step-950: #f7f9fc; /* Lightest */
 
-    // --ion-background-color: #132337 !important;
-    // --ion-page-background-color: #0f1824 !important;
-    // --ion-overlay-background-color: #0f1824 !important;
-    // --ion-toolbar-background: #0f1824 !important;
-    // --ion-toolbar-border-color: #1c2e45 !important;
-    // --ion-tab-bar-background: #0f1824 !important;
-    // --ion-tab-bar-color: #c8d7e9 !important;
-    // --ion-tab-bar-border-color: #1c2e45 !important;
-    // --button-background: #0f1824 !important;
-    // --button-background-selected: #0f1824 !important;
-    // --button-background-selected-opacity: 0 !important;
-
-    --ion-background-color: #030507;
-    --ion-background-color-step-50: #0a0a0f; /* Darkest */
-    --ion-background-color-step-100: #12121c;
-    --ion-background-color-step-150: #1b1b29;
-    --ion-background-color-step-200: #242439;
-    --ion-background-color-step-250: #2e2e50;
-    --ion-background-color-step-300: #393965;
-    --ion-background-color-step-350: #4a3cf1; /* Primary Color */
-    --ion-background-color-step-400: #5850e2;
-    --ion-background-color-step-450: #6a66cc;
-    --ion-background-color-step-500: #7b7bd4;
-    --ion-background-color-step-550: #8b8fdc;
-    --ion-background-color-step-600: #9a9ed6;
-    --ion-background-color-step-650: #a8aadf;
-    --ion-background-color-step-700: #b6b7e8;
-    --ion-background-color-step-750: #c4c4f2;
-    --ion-background-color-step-800: #d0d0f8;
-    --ion-background-color-step-850: #e1e1fc;
-    --ion-background-color-step-900: #f0f0ff; /* Lightest */
-    --ion-background-color-step-950: #f7f9fc; /* Lightest */
-
-    --ion-tab-bar-background: var(--ion-background-color-step-50) !important;
-    --ion-page-background-color: var(--ion-background-color-step-50) !important;
-    --ion-overlay-background-color: var(--ion-background-color-step-50) !important;
-  }
+  --ion-tab-bar-background: var(--ion-background-color-step-50) !important;
+  --ion-page-background-color: var(--ion-background-color-step-50) !important;
+  --ion-overlay-background-color: var(--ion-background-color-step-100) !important;
 }
