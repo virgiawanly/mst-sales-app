@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonContent, IonHeader, IonTitle, IonToolbar, AlertController } from '@ionic/angular/standalone';
+import { AlertController, IonContent, IonHeader, IonTitle, IonToolbar, isPlatform } from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { HttpFormattedErrorResponse } from 'src/types/http';
 import { LoginForm } from './login-form';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,13 @@ export class LoginPage {
     private _alertController: AlertController,
     private _router: Router
   ) {}
+
+  ionViewWillEnter() {
+    if (isPlatform('mobile')) {
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({ color: '#4a3cf1' });
+    }
+  }
 
   login() {
     this.loginForm.markAllAsTouched();
