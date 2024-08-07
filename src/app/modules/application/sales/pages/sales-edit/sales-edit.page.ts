@@ -74,7 +74,7 @@ export class SalesEditPage implements OnInit {
         },
         error: (error: HttpFormattedErrorResponse) => {
           if (error.status !== 401) {
-            this._router.navigateByUrl('/application/sales').then(() => {
+            this._router.navigateByUrl('/sales').then(() => {
               this._toastController.dismiss();
               this._toastController
                 .create({

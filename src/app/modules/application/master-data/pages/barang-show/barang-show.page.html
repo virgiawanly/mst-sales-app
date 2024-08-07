@@ -13,22 +13,22 @@
       >
         <div class="grid grid-cols-2 gap-4">
           <div class="col-span-2 flex flex-col">
-            <h6 class="text-slate-500 dark:text-slate-300 text-sm font-normal">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
               {{ 'name' | translate | titlecase }}
             </h6>
-            <p class="text-slate-700 dark:text-slate-100 text-base font-medium">{{ barang.nama }}</p>
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">{{ barang.nama }}</p>
           </div>
           <div class="flex flex-col">
-            <h6 class="text-slate-500 dark:text-slate-300 text-sm font-normal">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
               {{ 'code' | translate | titlecase }}
             </h6>
-            <p class="text-slate-700 dark:text-slate-100 text-base font-medium">{{ barang.kode }}</p>
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">{{ barang.kode }}</p>
           </div>
           <div class="flex flex-col">
-            <h6 class="text-slate-500 dark:text-slate-300 text-sm font-normal">
+            <h6 class="text-sm font-normal text-slate-500 dark:text-slate-300">
               {{ 'price' | translate | titlecase }}
             </h6>
-            <p class="text-slate-700 dark:text-slate-100 text-base font-medium">
+            <p class="text-base font-medium text-slate-700 dark:text-slate-100">
               Rp {{ barang.harga | number: '1.2-2' }}
             </p>
           </div>

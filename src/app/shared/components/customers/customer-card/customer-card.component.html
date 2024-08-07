@@ -13,23 +13,23 @@
       </div>
       <div class="mb-1 grid grid-cols-2">
         <div class="flex flex-col">
-          <h6 class="text-slate-500 dark:text-slate-400 text-xs font-normal">
+          <h6 class="text-xs font-normal text-slate-500 dark:text-slate-400">
             {{ 'code' | translate | titlecase }}
           </h6>
-          <p class="text-slate-900 dark:text-slate-100 line-clamp-1 text-sm font-medium">{{ customer.kode }}</p>
+          <p class="line-clamp-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ customer.kode }}</p>
         </div>
         <div class="flex flex-col">
-          <h6 class="text-slate-500 dark:text-slate-400 text-xs font-normal">
+          <h6 class="text-xs font-normal text-slate-500 dark:text-slate-400">
             {{ 'phone' | translate | titlecase }}
           </h6>
-          <p class="text-slate-900 dark:text-slate-100 line-clamp-1 text-sm font-medium">{{ customer.telp }}</p>
+          <p class="line-clamp-1 text-sm font-medium text-slate-900 dark:text-slate-100">{{ customer.telp }}</p>
         </div>
       </div>
     </div>
   </div>
   <div class="w-fit">
     <button
-      class="dark:border-surface-750 dark:bg-surface-800 dark:text-slate-200 grid place-items-center rounded border border-solid border-slate-300 bg-slate-100 p-1 text-primary-500"
+      class="dark:border-surface-750 dark:bg-surface-800 grid place-items-center rounded border border-solid border-slate-300 bg-slate-100 p-1 text-primary-500 dark:text-slate-200"
       (click)="openActionSheet()"
     >
       <ion-icon name="ellipsis-horizontal" class="text-sm"></ion-icon>
