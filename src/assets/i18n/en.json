@@ -101,5 +101,6 @@
   "are-you-sure-want-to-logout?": "Are you sure want to logout?",
   "created-at": "Created at",
   "try-adjusting-query-placeholder": "Try adjusting the search query and try again",
-  "add-new-data-placeholder": "Add new data to get started"
+  "add-new-data-placeholder": "Add new data to get started",
+  "start-searching-placeholder": "Start searching to show results"
 }

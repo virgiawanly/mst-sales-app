@@ -36,7 +36,7 @@ import { Pagination } from 'src/types/pagination';
     BarangCardComponent,
     BarangCardLoaderComponent,
     TranslateModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export class BarangTabComponent implements OnInit, OnDestroy {

@@ -1,5 +1,5 @@
 <div
-  class="flex cursor-pointer items-start gap-3 rounded-md border border-slate-200 bg-white p-3 shadow-sm duration-300 hover:bg-slate-50 dark:border-zink-600 dark:bg-zink-700 dark:hover:bg-zink-500"
+  class="dark:border-surface-750 dark:bg-surface-900 dark:hover:bg-surface-850 flex cursor-pointer items-start gap-3 rounded-md border border-slate-200 bg-white p-3 shadow-sm duration-300 hover:bg-slate-50"
 >
   <div class="flex flex-1 items-start gap-3" [routerLink]="'/master-data/barang/' + barang.id">
     <div
@@ -13,12 +13,16 @@
       </div>
       <div class="mb-1 grid grid-cols-2">
         <div class="flex flex-col">
-          <h6 class="text-xs font-normal text-zink-500 dark:text-zink-400">{{ 'code' | translate | titlecase }}</h6>
-          <p class="line-clamp-1 text-sm font-medium text-zink-700 dark:text-zink-100">{{ barang.kode }}</p>
+          <h6 class="text-slate-500 dark:text-slate-400 text-xs font-normal">
+            {{ 'code' | translate | titlecase }}
+          </h6>
+          <p class="text-slate-700 dark:text-slate-100 line-clamp-1 text-sm font-medium">{{ barang.kode }}</p>
         </div>
         <div class="flex flex-col">
-          <h6 class="text-xs font-normal text-zink-500 dark:text-zink-400">{{ 'price' | translate | titlecase }}</h6>
-          <p class="line-clamp-1 text-sm font-medium text-zink-700 dark:text-zink-100">
+          <h6 class="text-slate-500 dark:text-slate-400 text-xs font-normal">
+            {{ 'price' | translate | titlecase }}
+          </h6>
+          <p class="text-slate-700 dark:text-slate-100 line-clamp-1 text-sm font-medium">
             Rp {{ barang.harga | number: '1.2-2' }}
           </p>
         </div>
@@ -27,7 +31,7 @@
   </div>
   <div class="w-fit">
     <button
-      class="grid place-items-center rounded border border-solid border-slate-300 bg-slate-100 p-1 text-primary-500 dark:border-zink-500 dark:bg-zink-600 dark:text-zink-200"
+      class="dark:border-surface-750 dark:bg-surface-800 dark:text-slate-200 grid place-items-center rounded border border-solid border-slate-300 bg-slate-100 p-1 text-primary-500"
       (click)="openActionSheet()"
     >
       <ion-icon name="ellipsis-horizontal" class="text-sm"></ion-icon>
