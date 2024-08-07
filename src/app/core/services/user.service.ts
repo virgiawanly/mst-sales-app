@@ -123,7 +123,7 @@ export class UserService {
    */
   fetchUserDataFromApi() {
     this._isLoadingUser$.next(true);
-    return this._httpService.get(`web/auth/user`).pipe(
+    return this._httpService.get(`mobile/auth/user`).pipe(
       finalize(() => this._isLoadingUser$.next(false)),
       map((res: any) => {
         const user = res.data.user;

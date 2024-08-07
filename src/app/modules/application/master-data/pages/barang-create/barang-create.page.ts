@@ -56,7 +56,7 @@ export class BarangCreatePage {
     this.isSubmitting = true;
     this.barangForm.disable();
     this._httpService
-      .post('web/barang', this.barangForm.value)
+      .post('mobile/barang', this.barangForm.value)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data').then(() => {

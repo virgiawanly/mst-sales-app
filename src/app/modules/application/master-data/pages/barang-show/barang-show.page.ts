@@ -64,7 +64,7 @@ export class BarangShowPage implements OnInit {
   getBarang() {
     this.isLoadingBarang = true;
     this._httpService
-      .get(`web/barang/${this.barangId}`)
+      .get(`mobile/barang/${this.barangId}`)
       .subscribe({
         next: (res: any) => {
           this.barang = res.data ?? null;
@@ -115,7 +115,7 @@ export class BarangShowPage implements OnInit {
 
     this.isDeletingBarang = true;
     this._httpService
-      .delete(`web/barang/${this.barang.id}`)
+      .delete(`mobile/barang/${this.barang.id}`)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data', { replaceUrl: true }).then(() => {

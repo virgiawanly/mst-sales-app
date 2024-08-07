@@ -17,7 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { analytics, cash, people, statsChart } from 'ionicons/icons';
+import { analytics, cash, informationCircleOutline, people, statsChart } from 'ionicons/icons';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
@@ -26,6 +26,13 @@ import { SalesCardComponent } from 'src/app/shared/components/sales/sales-card/s
 import { HttpFormattedErrorResponse } from 'src/types/http';
 import { Pagination } from 'src/types/pagination';
 import { Sales } from 'src/types/sales';
+
+export interface DashboardAnalytics {
+  new_customers_count: number;
+  sales_average: number;
+  sales_count: number;
+  total_gross_sales: number;
+}
 
 @Component({
   selector: 'app-home',
@@ -62,22 +69,32 @@ export class HomePage implements OnInit {
     page: 1,
   };
 
+  isLoadingAnalytics: boolean = false;
+  analyticsLastGenerated: string | null = null;
+  analytics: DashboardAnalytics = {
+    new_customers_count: 0,
+    sales_average: 0,
+    sales_count: 0,
+    total_gross_sales: 0,
+  };
+
   constructor(
     private _httpService: HttpService,
     private _toastController: ToastController
   ) {
-    addIcons({ cash, analytics, people, statsChart });
+    addIcons({ cash, analytics, people, statsChart, informationCircleOutline });
   }
 
   ngOnInit() {
     this.getSales();
+    this.getAnalytics();
   }
 
   getSales(loadMore: boolean = false) {
     return new Promise((resolve, reject) => {
       this.isLoadingSales = true;
       this._httpService
-        .get('web/sales', {
+        .get('mobile/sales', {
           params: {
             size: this.salesPagination.size,
             page: this.salesPagination.page,
@@ -128,7 +145,7 @@ export class HomePage implements OnInit {
   refreshPage(event: RefresherCustomEvent) {
     this.salesPagination.page = 1;
     this.sales = [];
-    this.getSales(false).finally(() => event.target.complete());
+    Promise.all([this.getSales(false), this.getAnalytics()]).finally(() => event.target.complete());
   }
 
   onSalesDeleted(sales: Sales) {
@@ -144,5 +161,39 @@ export class HomePage implements OnInit {
       this.sales = [];
       this.getSales();
     }
+  }
+
+  getAnalytics() {
+    return new Promise((resolve, reject) => {
+      this.isLoadingAnalytics = true;
+      this._httpService
+        .get('mobile/dashboard/analytics')
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.analytics = res.data.analytics;
+            this.analyticsLastGenerated = res.data.last_generated;
+            resolve(res);
+          },
+          error: (error: HttpFormattedErrorResponse) => {
+            if (error.status !== 401) {
+              this._toastController
+                .create({
+                  message: error.message,
+                  duration: 3000,
+                  position: 'bottom',
+                })
+                .then((toast) => {
+                  toast.present();
+                });
+            }
+
+            reject(error);
+          },
+        })
+        .add(() => {
+          this.isLoadingAnalytics = false;
+        });
+    });
   }
 }

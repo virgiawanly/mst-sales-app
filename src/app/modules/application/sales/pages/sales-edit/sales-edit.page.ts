@@ -64,7 +64,7 @@ export class SalesEditPage implements OnInit {
     this.isLoadingSales = true;
     this.salesForm.disable();
     this._httpService
-      .get(`web/sales/${this.salesId}`)
+      .get(`mobile/sales/${this.salesId}`)
       .subscribe({
         next: (res: any) => {
           const sales = res.data ?? null;
@@ -131,7 +131,7 @@ export class SalesEditPage implements OnInit {
     this.isSubmitting = true;
     this.salesForm.disable();
     this._httpService
-      .post(`web/sales/${this.salesId}`, payload, {
+      .post(`mobile/sales/${this.salesId}`, payload, {
         params: {
           _method: 'PUT',
         },

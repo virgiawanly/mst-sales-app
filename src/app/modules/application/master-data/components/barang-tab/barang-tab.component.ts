@@ -79,7 +79,7 @@ export class BarangTabComponent implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.isLoadingBarang = true;
       this._httpService
-        .get('web/barang', {
+        .get('mobile/barang', {
           params: {
             size: this.barangPagination.size,
             page: this.barangPagination.page,

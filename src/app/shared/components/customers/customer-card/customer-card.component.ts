@@ -105,7 +105,7 @@ export class CustomerCardComponent {
 
     this.isDeletingCustomer = true;
     this._httpService
-      .delete(`web/customer/${this.customer.id}`)
+      .delete(`mobile/customer/${this.customer.id}`)
       .subscribe({
         next: (res: any) => {
           this.deleted.emit(this.customer);

@@ -56,7 +56,7 @@ export class CustomerCreatePage {
     this.isSubmitting = true;
     this.customerForm.disable();
     this._httpService
-      .post('web/customer', this.customerForm.value)
+      .post('mobile/customer', this.customerForm.value)
       .subscribe({
         next: (res: any) => {
           this._router.navigateByUrl('/master-data').then(() => {

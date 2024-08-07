@@ -93,7 +93,7 @@ export class SalesIndexPage implements OnInit, OnDestroy {
     return new Promise((resolve, reject) => {
       this.isLoadingSales = true;
       this._httpService
-        .get('web/sales', {
+        .get('mobile/sales', {
           params: {
             size: this.salesPagination.size,
             page: this.salesPagination.page,

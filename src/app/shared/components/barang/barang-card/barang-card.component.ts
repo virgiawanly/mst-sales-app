@@ -98,7 +98,7 @@ export class BarangCardComponent {
 
     this.isDeletingBarang = true;
     this._httpService
-      .delete(`web/barang/${this.barang.id}`)
+      .delete(`mobile/barang/${this.barang.id}`)
       .subscribe({
         next: (res: any) => {
           this.deleted.emit(this.barang);

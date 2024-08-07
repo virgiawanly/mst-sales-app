@@ -78,7 +78,7 @@ export class SalesCreatePage {
     this.isSubmitting = true;
     this.salesForm.disable();
     this._httpService
-      .post('web/sales', payload)
+      .post('mobile/sales', payload)
       .subscribe({
         next: (res: any) => {
           this.salesForm.reset();
