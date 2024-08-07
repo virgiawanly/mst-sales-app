@@ -307,7 +307,7 @@
           <label class="form-label">{{ 'subtotal' | translate | titlecase }} (Rp)</label>
           <input
             type="text"
-            class="form-control form-input h-9 flex-1 text-sm"
+            class="form-control form-input"
             placeholder="Subtotal"
             [value]="form.get('subtotal')?.value | number: '1.2-2'"
             readonly
@@ -317,7 +317,7 @@
           <label class="form-label">{{ 'discount' | translate | titlecase }} (Rp)</label>
           <input
             type="number"
-            class="form-control form-input h-9 flex-1 text-sm"
+            class="form-control form-input"
             [placeholder]="'Input' + ' ' + ('discount' | translate | titlecase)"
             formControlName="diskon"
             (ngModelChange)="form.onChangeDiskon()"
@@ -328,7 +328,7 @@
           <label class="form-label">{{ 'shipping-cost' | translate | titlecase }} (Rp)</label>
           <input
             type="number"
-            class="form-control form-input h-9 flex-1 text-sm"
+            class="form-control form-input"
             [placeholder]="'Input' + ' ' + ('shipping-cost' | translate | titlecase)"
             formControlName="ongkir"
             (ngModelChange)="form.onChangeOngkir()"
@@ -339,7 +339,7 @@
           <label class="form-label">{{ 'total-payment' | translate | titlecase }} (Rp)</label>
           <input
             type="text"
-            class="form-control form-input h-9 flex-1 text-sm"
+            class="form-control form-input"
             [placeholder]="'total-payment' | translate | titlecase"
             [value]="form.get('total_bayar')?.value | number: '1.2-2'"
             readonly
