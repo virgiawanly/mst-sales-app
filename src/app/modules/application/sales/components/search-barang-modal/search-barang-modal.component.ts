@@ -1,50 +1,62 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  IonContent,
   IonIcon,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
-  IonRefresher,
-  IonRefresherContent,
-  RefresherCustomEvent,
+  IonModal,
   ToastController,
+  IonBackButton,
+  IonToolbar,
+  IonHeader,
+  IonTitle,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
-import { searchOutline } from 'ionicons/icons';
+import { checkmarkCircleOutline, cubeOutline, searchOutline } from 'ionicons/icons';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { HttpService } from 'src/app/core/services/http.service';
-import { BarangCardLoaderComponent } from 'src/app/shared/components/barang/barang-card-loader/barang-card-loader.component';
-import { BarangCardComponent } from 'src/app/shared/components/barang/barang-card/barang-card.component';
 import { Barang } from 'src/types/barang';
 import { HttpFormattedErrorResponse } from 'src/types/http';
 import { Pagination } from 'src/types/pagination';
 
 @Component({
-  selector: 'app-barang-tab',
-  templateUrl: './barang-tab.component.html',
-  styleUrls: ['./barang-tab.component.scss'],
+  selector: 'app-search-barang-modal',
+  templateUrl: './search-barang-modal.component.html',
+  styleUrls: ['./search-barang-modal.component.scss'],
   standalone: true,
   imports: [
-    IonRefresherContent,
-    IonRefresher,
+    IonTitle,
+    IonHeader,
+    IonToolbar,
+    IonBackButton,
     IonInfiniteScrollContent,
-    IonInfiniteScroll,
+    IonContent,
+    IonModal,
     IonIcon,
-    FormsModule,
-    BarangCardComponent,
-    BarangCardLoaderComponent,
-    TranslateModule,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
     CommonModule,
+    TranslateModule,
+    FormsModule,
   ],
 })
-export class BarangTabComponent implements OnInit, OnDestroy {
+export class SearchBarangModalComponent implements OnInit, OnDestroy {
   private _unsubscribe$: Subject<void> = new Subject<void>();
+
+  @Input({ required: true }) isOpen: boolean = false;
+  @Input({ required: false }) selectedIds: number[] = [];
+  @Output() selected: EventEmitter<Barang> = new EventEmitter<Barang>();
+  @Output() modalDismiss: EventEmitter<void> = new EventEmitter<void>();
+
+  @ViewChild('barangSearchInput', { static: false }) barangearchInput: any;
 
   isLoadingBarang: boolean = false;
   barang: Barang[] = [];
   barangSearch: string = '';
+  barangSearchPlaceholder: string = 'start-searching-placeholder';
   barangSearchDebounce: Subject<string> = new Subject<string>();
   barangPagination: Pagination = {
     size: 10,
@@ -57,15 +69,27 @@ export class BarangTabComponent implements OnInit, OnDestroy {
     private _httpService: HttpService,
     private _toastController: ToastController
   ) {
-    addIcons({ searchOutline });
+    addIcons({ searchOutline, checkmarkCircleOutline, cubeOutline });
+  }
+
+  onDidPresent() {
+    // Autofocus search input
+    setTimeout(() => {
+      this.barangearchInput?.nativeElement?.focus();
+    }, 100);
   }
 
   ngOnInit() {
-    this.getBarang();
-
     this.barangSearchDebounce.pipe(debounceTime(500), takeUntil(this._unsubscribe$)).subscribe((search: string) => {
+      if (!search) {
+        this.barang = [];
+        this.barangSearchPlaceholder = 'start-searching-placeholder';
+        return;
+      }
+
       this.barangSearch = search;
       this.barangPagination.page = 1;
+      this.barangSearchPlaceholder = 'try-adjusting-query-placeholder';
       this.getBarang();
     });
   }
@@ -126,24 +150,8 @@ export class BarangTabComponent implements OnInit, OnDestroy {
     this.getBarang(true).finally(() => event.target.complete());
   }
 
-  refreshTab(event: RefresherCustomEvent) {
-    this.barangPagination.page = 1;
-    this.barang = [];
-    this.getBarang(false).finally(() => event.target.complete());
-  }
-
-  onBarangDeleted(barang: Barang) {
-    // Remove deleted barang from the list
-    this.barang = this.barang.filter((c) => c.id !== barang.id);
-
-    // Update total items
-    this.barangPagination.totalItems -= 1;
-
-    // Reload the barang if the deleted barang was the last one
-    if (this.barang.length === 0) {
-      this.barangPagination.page = 1;
-      this.barang = [];
-      this.getBarang();
-    }
+  selectBarang(barang: Barang) {
+    this.selected.emit(barang);
+    this.modalDismiss.emit();
   }
 }

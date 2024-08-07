@@ -1,5 +1,13 @@
 ion-header {
   ion-toolbar {
-    --background: transparent;
+    --background: var(--ion-color-primary);
+
+    ion-title {
+      --color: var(--ion-color-primary-contrast);
+    }
   }
+}
+
+ion-content#page-content {
+  --background: var(--ion-page-background-color);
 }

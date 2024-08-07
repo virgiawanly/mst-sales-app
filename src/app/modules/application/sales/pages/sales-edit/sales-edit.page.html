@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
+<ion-header mode="ios">
   <ion-toolbar>
-    <ion-title>sales-edit</ion-title>
+    <ion-back-button defaultHref="/sales" slot="start" color="light"></ion-back-button>
+    <ion-title>{{ 'edit-sales' | translate | titlecase }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">sales-edit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" id="page-content">
+  <app-sales-form [form]="salesForm" [sales]="sales" (formSubmit)="submit()"></app-sales-form>
 </ion-content>
+
+<ion-footer mode="ios">
+  <ion-toolbar class="ion-no-padding">
+    <div class="ion-padding flex items-center justify-between gap-3">
+      <div class="flex-1">
+        <button
+          class="h-10 w-full rounded border border-solid border-primary-500 bg-transparent px-3 font-medium text-primary-500 duration-300 hover:bg-primary-500 hover:text-white"
+          (click)="back()"
+        >
+          {{ 'cancel' | translate | titlecase }}
+        </button>
+      </div>
+      <div class="flex-1">
+        <button
+          class="h-10 w-full rounded border border-solid border-primary-500 bg-primary-500 px-3 font-semibold text-white duration-300 hover:bg-primary-600 hover:text-white"
+          (click)="submit()"
+        >
+          {{ 'save' | translate | titlecase }}
+        </button>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
